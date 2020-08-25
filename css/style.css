@@ -1,0 +1,79 @@
+.container {
+    display: flex;
+}
+
+#drag {
+    width: 40vw;
+}
+
+#drop {
+    background: center / cover no-repeat url('../img/house.jpg');
+    height: 100vh;
+    width: 60vw;   
+}
+
+.item{
+    background: salmon;
+    width: 5vw;
+    height: 5vw;
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    border-radius: 15%;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: whitesmoke;
+}
+
+.wall {
+    display: flex;
+    float: right;
+}
+.wall-item{
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 5vw;
+    height: 5vw;
+    margin: 10px;
+    display: block;
+}
+
+.wall-item p {
+    /* padding: 20px 10px 0px; */
+    color: salmon;
+}
+
+.adobe {
+    background: center / contain no-repeat url('../img/adobe-brick.svg') white;
+}
+.brick {
+    background: center / contain no-repeat url('../img/bick-icon-png-15.jpg') white;
+}
+.wood {
+    background: center / contain no-repeat url('../img/wood-icon-20.jpg') white;
+}
+
+.icon {
+    height: 70%;
+    display: block;
+}
+#solarPanel {
+    background: center / contain no-repeat url('../img/solar-panel.jpg') salmon; 
+}
+#wallInsulation {
+    background: center / contain no-repeat url('../img/wall-insulation.webp') salmon; 
+}
+#roofInsulation {
+    background: center / contain no-repeat url('../img/roof-insulation.jpg') salmon; 
+}
+#multiLayerWindows {
+    background: center / contain no-repeat url('../img/multi-layer2.png') salmon; 
+}
+#airCondition {
+    background: center / contain no-repeat url('../img/air-cond.png') salmon; 
+}
+
+
+#electricHeating {
+    background: center / contain no-repeat url('../img/Electric_heating_icon.png') salmon; 
+}

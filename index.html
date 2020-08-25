@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag &amp; drop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <p id="boxValue"></p>
+        
+        <section id="drag">
+            <ul>
+            <li class="item" data-green-index="1" draggable="true"><span class="icon" id="solarPanel"></span>Napelem</li>
+            <li class="item" data-green-index="12" draggable="true"><span class="icon" id="wallInsulation"></span>Falszigetelés</li>
+            <li class="item" data-green-index="-1" draggable="true"><span class="icon" id="roofInsulation"></span>Tetőszigetelés</li>
+            <li class="item" data-green-index="0" draggable="true"><span class="icon" id="multiLayerWindows"></span>Többrétegű szigetelt nyílászárók</li>
+            <li class="item" data-green-index="5" draggable="true"><span class="icon" id="airCondition"></span>Klímaberendezés</li>
+            <li class="item" data-green-index="-6" draggable="true"><span class="icon" id="mixedHeating"></span>Fűtés: vegyes tüzelés</li>
+            <li class="item" data-green-index="15" draggable="true"><span class="icon" id="gasHeating"></span>Fűtés: gázfűtés</li>
+            <li class="item" data-green-index="4" draggable="true"><span class="icon" id="electricHeating"></span>Fűtés: elektromos fűtés</li>
+            <li class="item" data-green-index="8" draggable="true"><span class="icon" id="powerSavingMains"></span>Energiatakarékos nagygépek</li>
+            <li class="item" data-green-index="3" draggable="true"><span class="icon" id="gasOven"></span>Gáz sütő</li>
+            <li class="item" data-green-index="0" draggable="true"><span class="icon" id="multiOven"></span>Kombinált sütő</li>
+            <li class="item" data-green-index="-9" draggable="true"><span class="icon" id="electricOven"></span>Elektromos sütő</li>
+            <li class="item" data-green-index="14" draggable="true"><span class="icon" id="powerSavingBulbs"></span>Energiatakarékos izzók</li>
+            <li class="item" data-green-index="5" draggable="true"><span class="icon" id="selectiveBin"></span>Szelektív kukák</li>
+            <li class="item" data-green-index="2" draggable="true"><span class="icon" id="controlledVentillation"></span>Irányított ventilláció</li>
+            <li class="item" data-green-index="1" draggable="true"><span class="icon" id="heatPump"></span>Hőszivattyú</li>
+            <li class="item" data-green-index="2" draggable="true"><span class="icon" id="composter"></span>Komposztáló</li>
+            <li class="item" data-green-index="5" draggable="true"><span class="icon" id="rainwaterStorage"></span>Esővíz tároló</li>
+            <li class="item" data-green-index="-5" draggable="true"><span class="icon" id="treesBushes"></span>Fák, bokrok</li>
+        </ul>
+        </section>
+        <section id="drop">
+            <div class="wall">
+                <form action="">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary">
+                          <input class="wallType" type="radio" data-base-index="50" autocomplete="off"><span class="adobe wall-item"></span>Vályog
+                        </label>
+                        <label class="btn btn-secondary">
+                          <input class="wallType" type="radio" data-base-index="20" autocomplete="off"><span class="brick wall-item"></span>Tégla
+                        </label>
+                        <label class="btn btn-secondary">
+                          <input class="wallType" type="radio" data-base-index="10" autocomplete="off"><span class="wood wall-item"></span>Fa
+                        </label>
+                      </div>
+                </form>
+            </div>
+        </section>
+        <button>Mentés</button>
+        <button>Mégse</button>
+    </div>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
