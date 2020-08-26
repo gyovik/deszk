@@ -24,7 +24,7 @@ class Database {
     * Open the connection to your database
     */
     private function open() {
-        $this->connection = new mysqli($this->host, $this->username, $this->password, $this->database, $this->port);
+        $this->connection = new mysqli($this->host, $this->username, $this->password, $this->database);
     }
 
     /**
@@ -50,5 +50,15 @@ class Database {
     */
     public function escape($string) {
         return $this->connection->escape_string($query);
+    }
+
+    public function getLastId()
+    {
+        return $this->connection->insert_id;
+    }
+
+    public function getError()
+    {
+        return $this->connection->error;
     }
 }

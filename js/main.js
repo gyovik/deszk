@@ -1,7 +1,8 @@
     const boxValue = document.querySelector('#boxValue');
     const drop = document.querySelector('#drop');
     const drag = document.querySelector('#drag');
-    const items = document.querySelectorAll('.item');
+    const houseOptions = document.querySelectorAll('.houseOption');
+    const saveBtn = document.querySelector('#saveBtn');
 
     // Drag and Drop listeners
     drop.addEventListener('dragover', dragOver);
@@ -14,10 +15,13 @@
     drag.addEventListener('dragleave', dragLeave);
     drag.addEventListener('drop', dropDrag);
 
+    // Save btn listener
+    saveBtn.addEventListener('click', sendAjaxReq);
+
     // Loop through the items and call drag events
-    for(const item of items) {
-        item.addEventListener('dragstart', dragStart);
-        item.addEventListener('dragend', dragEnd);
+    for(const houseOption of houseOptions) {
+        houseOption.addEventListener('dragstart', dragStart);
+        houseOption.addEventListener('dragend', dragEnd);
     }
 
     // Dragged item
@@ -42,28 +46,36 @@
     function dragDrop() {
         currentItem.classList.add("itemIn");
         this.append(currentItem);
-        boxValue.innerHTML = getBoxValue();
+        boxValue.innerHTML = calcGreenValue();
     }
 
     function dropDrag() {
         currentItem.classList.remove("itemIn");
         this.append(currentItem);
-        boxValue.innerHTML = getBoxValue();
+        boxValue.innerHTML = calcGreenValue();
     }
 
-    function getBoxValue() {
-        const itemsInTheBox = document.querySelectorAll('.itemIn');
+    /**
+     * Return the selected radio button
+     */
+    function findSelectedWallType() {
         const wallTypes = document.querySelectorAll('.wallType');
-        
+        for (const wallType of wallTypes){
+            if (wallType.checked){
+                return wallType;
+            }
+        }
+    }
+
+    function calcGreenValue() {
+        const itemsInTheBox = document.querySelectorAll('.itemIn');
+
         let baseIndex = 0;
         let total = 0;
 
-        // Get the base value from wall type radio buttons
-        for (const wallType of wallTypes){
-            if (wallType.checked){
-                total = Number(wallType.dataset.baseIndex);
-            }
-        }
+        let wallType = findSelectedWallType();
+        total = Number(wallType.dataset.baseIndex);
+        wallType = null;
 
         // Collect all items in drop area and calculate the actual greenIndex value
         for (const item of itemsInTheBox){
@@ -72,4 +84,40 @@
         }
 
         return total;
-    }        
+    }   
+
+    function collectSelectedOptions() {
+        const selectedOptions = document.querySelectorAll('.itemIn');
+        let selectedOptionIds = [];
+        let i = 0;
+        selectedOptions.forEach(option => {
+            selectedOptionIds[i] = option.dataset.optionId;
+            i++;
+        });
+        return selectedOptionIds;
+    }
+    
+    function sendAjaxReq() {
+        const totalGreenValue = calcGreenValue();
+        const selectedOptions = collectSelectedOptions();
+        const wallTypeNode = findSelectedWallType();
+
+        const errorDiv = document.querySelector('#error');
+        const wallType = wallTypeNode.dataset.wallId;
+        let data = {
+            'save': 'true',
+            'totalGreenValue' : totalGreenValue,
+            'options' : selectedOptions,
+            'wallType' : wallType
+        }
+
+        $.ajax({
+            method: "POST",
+            url:'reqHandler.php',
+            data: data
+        })
+        .done(function(response){
+            // errorDiv.innerHTML = response;
+            console.log(response);
+        });
+    }

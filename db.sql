@@ -41,8 +41,8 @@ CREATE TABLE `customer_house` (
 --
 
 CREATE TABLE `customer_house_option` (
-  `customer_houses_id` int(11) NOT NULL,
-  `house_options_id` int(11) NOT NULL
+  `customer_house_id` int(11) NOT NULL,
+  `house_option_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -122,8 +122,8 @@ ALTER TABLE `customer_house`
 -- Indexes for table `customer_house_option`
 --
 ALTER TABLE `customer_house_option`
-  ADD KEY `fk_customer_house_options_customer_houses1_idx` (`customer_houses_id`),
-  ADD KEY `fk_customer_house_options_house_options1_idx` (`house_options_id`);
+  ADD KEY `fk_customer_house_options_customer_houses1_idx` (`customer_house_id`),
+  ADD KEY `fk_customer_house_options_house_options1_idx` (`house_option_id`);
 
 --
 -- Indexes for table `house_option`
