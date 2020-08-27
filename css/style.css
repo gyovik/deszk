@@ -55,6 +55,13 @@
 .wood {
     background: center / contain no-repeat url('../img/wood-icon-20.jpg') white;
 }
+.progress {
+    margin: 15px 0;
+}
+.progress-bar {
+   
+    background: linear-gradient(90deg, rgba(36,0,8,0.6895133053221288) 0%, rgba(255,0,0,1) 0%, rgba(99,255,0,1) 100%);
+}
 
 footer {
     width: 100vw;

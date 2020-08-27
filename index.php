@@ -56,7 +56,10 @@
             </div>
         </section>
       </div>
-      <footer>     
+      <footer>    
+      <div class="progress">
+        <div class="progress-bar w-50" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="140"></div>
+      </div> 
         <button class="btn btn-success" id="saveBtn">Mentés</button>
         <button class="btn btn-danger" onclick="location.reload()">Alaphelyzet</button>
       </footer>

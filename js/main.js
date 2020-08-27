@@ -4,6 +4,11 @@
     const houseOptions = document.querySelectorAll('.houseOption');
     const saveBtn = document.querySelector('#saveBtn');
 
+    // we need this for the progressbar
+    const pointPerPercent = 100/140;
+
+    console.log(pointPerPercent);
+
     // Drag and Drop listeners
     drop.addEventListener('dragover', dragOver);
     drop.addEventListener('dragenter', dragEnter);
