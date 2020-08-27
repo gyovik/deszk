@@ -8,6 +8,7 @@ class Model
     public function __construct()
     {
         $this->connection = new Database;
+        $this->connection->query("SET NAMES 'utf8'");
     }
 
     public function getHouseOptions()
@@ -18,21 +19,29 @@ class Model
         return $result;
     }
 
+    public function getHeatingTypes()
+    {
+        $query = 'SELECT * FROM `heating_type`';
+        $result = $this->connection->query($query);
+        $this->connection->close();
+        return $result;
+    }
+
     public function getHouseTypes()
     {
         $query = 'SELECT * FROM `house_type`';
         $result = $this->connection->query($query);
- 
+        $this->connection->close();
         return $result;
     }
 
     /**
      * @return int last inserted id
      */
-    public function createNewHouse($greenValue, $houseType)
+    public function createNewHouse($greenValue, $houseType, $heatingType)
     {
-        $query = 'INSERT INTO `customer_house` (`green_value`, `house_type_id`)
-        VALUES ('.$greenValue.','.$houseType.')';
+        $query = 'INSERT INTO `customer_house` (`green_value`, `house_type_id`, `heating_type_id`)
+        VALUES ('.$greenValue.','.$houseType.','.$heatingType.')';
 
         $this->connection->query($query);
         $lastId = $this->connection->getLastId();

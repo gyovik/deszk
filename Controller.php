@@ -4,6 +4,11 @@ require 'Model.php';
 
 class Controller {
 
+    /**
+     * Get available options for drag and drop
+     * 
+     * @return array
+     */
     public function getHouseOptions()
     {
         $model = new Model;
@@ -33,6 +38,11 @@ class Controller {
 
     }
 
+    /**
+     * Get house types for radio buttons
+     * 
+     * @return array
+     */
     public function getHouseTypes()
     {
         $model = new Model;
@@ -41,24 +51,34 @@ class Controller {
     }
 
     /**
-     *   let data = {
-     *      'save': 'true',
-     *     'totalGreenValue' : totalGreenValue,
-     *       'options' : selectedOptions,
-     *       'wallType' : wallType
-     *   }
+     * Save user house
+     * 
+     * @param array POST array
+     * @return string
      */
-
     public function saveHouse($postArray)
     {
         // $postArray = json_decode($postArrayJson);
         $greenValue = $postArray['totalGreenValue'];
-        $houseType = $postArray['wallType'];
         $selectedOtions = $postArray['options'];
+        $houseType = $postArray['wallType'];
+        $heatingType = $postArray['heatingType'];
         $model = new Model;
-        $custHouseId = $model->createNewHouse($greenValue, $houseType);
+        $custHouseId = $model->createNewHouse($greenValue, $houseType, $heatingType);
         $model->addSelectedOptions($custHouseId, $selectedOtions);
 
-        return 'All good';
+        return 'Köszönjük, elmentettük...';
+    }
+
+    /**
+     * Get the heating option for radio buttons
+     * 
+     * @return array
+     */
+    public function getHeatingTypes()
+    {
+        $model = new Model;
+        $result = $model->getHeatingTypes();
+        return $this->toArray($result);
     }
 }

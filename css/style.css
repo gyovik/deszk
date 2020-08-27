@@ -32,7 +32,7 @@
     display: flex;
     float: right;
 }
-.wall-item{
+.wall-item, .heating-item{
     border: 2px solid black;
     border-radius: 5px;
     width: 5vw;
@@ -46,24 +46,56 @@
     color: salmon;
 }
 
-.adobe {
-    background: center / contain no-repeat url('../img/adobe-brick.svg') white;
+.minMaxGreenValue {
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    width: 95vw;
+    justify-content: space-between;
 }
-.brick {
-    background: center / contain no-repeat url('../img/bick-icon-png-15.jpg') white;
+
+.minMaxGreenValue > p {
+    margin: 0;
+    padding: 0;
 }
-.wood {
-    background: center / contain no-repeat url('../img/wood-icon-20.jpg') white;
-}
+
 .progress {
-    margin: 15px 0;
+    margin: 0 auto;
+    width: 95vw;
 }
 .progress-bar {
    
     background: linear-gradient(90deg, rgba(36,0,8,0.6895133053221288) 0%, rgba(255,0,0,1) 0%, rgba(99,255,0,1) 100%);
 }
 
-footer {
-    width: 100vw;
+/* const darkGreen = '#4bb549';
+const green = '#a6c34c';
+const orange = '#ffc84a';
+const darkOrange = '#f48847';
+const red = '#eb4841'; */
+
+
+.prog-red {
+    background: #eb4841;
+}
+.prog-dark-orange {
+    background: #f48847;
+}
+.prog-orange {
+    background: #ffc84a;
+}
+.prog-green {
+    background: #a6c34c;
+}
+.prog-dark-green {
+    background: #4bb549;
+}
+
+.buttons {
+    width: 30vw;
     display: block;
+    margin: 20px auto;
+}
+.btn {
+    margin-right: 30px;
 }
