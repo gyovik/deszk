@@ -1,3 +1,12 @@
+body {
+    width: 100vw;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .boxes {
     width: 100vw;
     display: flex;
@@ -28,35 +37,22 @@
     color: whitesmoke;
 }
 
-.wall {
-    display: flex;
-    float: right;
+.wall, .heating {
+    /* display: flex;
+    float: right; */
 }
 .wall-item, .heating-item{
     border: 2px solid black;
     border-radius: 5px;
-    width: 5vw;
-    height: 5vw;
-    margin: 10px;
+    width: 3vw;
+    height: 3vw;
+    margin: 5px;
     display: block;
 }
 
 .wall-item p {
     /* padding: 20px 10px 0px; */
     color: salmon;
-}
-
-.minMaxGreenValue {
-    padding: 0;
-    margin: 0 auto;
-    display: flex;
-    width: 95vw;
-    justify-content: space-between;
-}
-
-.minMaxGreenValue > p {
-    margin: 0;
-    padding: 0;
 }
 
 .progress {
@@ -92,7 +88,7 @@ const red = '#eb4841'; */
 }
 
 .buttons {
-    width: 30vw;
+    
     display: block;
     margin: 20px auto;
 }

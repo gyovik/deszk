@@ -31,8 +31,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `customer_house` (
   `id` int(11) NOT NULL,
   `green_value` float NOT NULL,
-  `house_type_id` int(11) NOT NULL
-  `heating_type_id` int(11) NOT NULL
+  `house_type_id` int(11) NOT NULL,
+  `heating_type_id` int(11) NOT NULL,
+  `cooker_type_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -70,17 +71,14 @@ INSERT INTO `house_option` (`id`, `name`, `green_index`, `icon`) VALUES
 (4, 'többrétegű nyílászárók', 10, NULL),
 (5, 'klímaberendezés', 10, NULL),
 (6, 'energiatakarékos nagygépek', 10, NULL),
-(7, 'gáz sütő', 5, NULL),
-(8, 'kombinált sütő', 5, NULL),
-(9, 'elektromos sütő', 10, NULL),
-(10, 'energiatakarékos izzók', 10, NULL),
-(11, 'szelektív kukák', 10, NULL),
-(12, 'irányított ventilláció', 10, NULL),
-(13, 'hőszivattyú', 10, NULL),
-(14, 'komposztáló', 5, NULL),
-(15, 'esővíz tároló', 5, NULL),
-(16, 'fák, bokrok', 5, NULL),
-(17, 'öntöző rendszer', 5, NULL);
+(7, 'energiatakarékos izzók', 10, NULL),
+(8, 'szelektív kukák', 10, NULL),
+(9, 'irányított ventilláció', 10, NULL),
+(10, 'hőszivattyú', 10, NULL),
+(11, 'komposztáló', 5, NULL),
+(12, 'esővíz tároló', 5, NULL),
+(13, 'fák, bokrok', 5, NULL),
+(14, 'öntöző rendszer', 5, NULL);
 
 
 -- --------------------------------------------------------
@@ -106,6 +104,28 @@ INSERT INTO `house_type` (`id`, `name`, `green_index`, `icon`) VALUES
 (3, 'Panel', 5, NULL),
 (4, 'Fa', 5, NULL),
 (5, 'Egyéb', -10, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cooker_type`
+--
+
+CREATE TABLE `cooker_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `green_index` float NOT NULL,
+  `icon` blob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cooker_type`
+--
+
+INSERT INTO `cooker_type` (`id`, `name`, `green_index`, `icon`) VALUES
+(1, 'kombinált tűzhely', 5, NULL),
+(2, 'villanytűzhely', 10, NULL),
+(3, 'gáztűzhely', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -163,6 +183,12 @@ ALTER TABLE `house_type`
 ALTER TABLE `heating_type`
   ADD PRIMARY KEY (`id`);
 
+--  
+-- Indexes for table `cooker_type`
+--
+ALTER TABLE `cooker_type`
+  ADD PRIMARY KEY (`id`);
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -184,12 +210,17 @@ ALTER TABLE `house_option`
 --
 ALTER TABLE `house_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-COMMIT;
 
 --
 -- AUTO_INCREMENT for table `heating_type`
 --
 ALTER TABLE `heating_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `heating_type`
+--
+ALTER TABLE `cooker_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 

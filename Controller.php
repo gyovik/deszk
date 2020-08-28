@@ -51,6 +51,18 @@ class Controller {
     }
 
     /**
+     * Get cooker types for radio buttons
+     * 
+     * @return array
+     */
+    public function getCookerTypes()
+    {
+        $model = new Model;
+        $result = $model->getCookerTypes();
+        return $this->toArray($result);
+    }
+
+    /**
      * Save user house
      * 
      * @param array POST array
@@ -63,8 +75,9 @@ class Controller {
         $selectedOtions = $postArray['options'];
         $houseType = $postArray['wallType'];
         $heatingType = $postArray['heatingType'];
+        $cookerType = $postArray['cookerType'];
         $model = new Model;
-        $custHouseId = $model->createNewHouse($greenValue, $houseType, $heatingType);
+        $custHouseId = $model->createNewHouse($greenValue, $houseType, $heatingType, $cookerType);
         $model->addSelectedOptions($custHouseId, $selectedOtions);
 
         return 'Köszönjük, elmentettük...';

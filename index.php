@@ -5,6 +5,7 @@
   $houseOptions = $controller->getHouseOptions();
   $houseTypes = $controller->getHouseTypes();
   $heatingTypes = $controller->getHeatingTypes();
+  $cookerTypes = $controller->getCookerTypes();
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +22,57 @@
   <div id="error"></div>
     <div class="boxes">
         <section id="drag">
+        <div class="wall">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <?php
+              foreach($houseTypes as $houseType) :
+              ?>
+                <label class="btn btn-secondary">
+                  <input name="wall_type" data-wall-id="<?php echo $houseType['id']; ?>" class="wallType" type="radio" data-base-index="<?php echo $houseType['green_index']; ?>" autocomplete="off">
+                  <span class="wall-item">
+                  <?php echo $houseType['icon'] ? '<img src="data:image/jpeg;base64,' . base64_encode( $houseType['icon'] ) . '"/>' : ''; ?>
+                  </span>
+                  <?php echo $houseType['name']; ?>
+                </label>
+              <?php
+              endforeach;
+              ?>
+            </div> 
+          </div> <!-- .wall -->
+          <div class="heating">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <?php
+              foreach($heatingTypes as $heatingType) :
+              ?>
+                <label class="btn btn-secondary">
+                  <input name="heating_type" data-heating-id="<?php echo $heatingType['id']; ?>" class="heatingType" type="radio" data-base-index="<?php echo $heatingType['green_index']; ?>" autocomplete="off">
+                  <span class="heating-item">
+                  <?php echo $heatingType['icon'] ? '<img src="data:image/jpeg;base64,' . base64_encode( $heatingType['icon'] ) . '"/>' : ''; ?>
+                  </span>
+                  <?php echo $heatingType['name']; ?>
+                </label>
+              <?php
+              endforeach;
+              ?>
+            </div> 
+          </div> <!-- .heating -->
+          <div class="cooker">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <?php
+              foreach($cookerTypes as $cookerType) :
+              ?>
+                <label class="btn btn-secondary">
+                  <input name="cooker_type" data-cooker-id="<?php echo $cookerType['id']; ?>" class="cookerType" type="radio" data-base-index="<?php echo $cookerType['green_index']; ?>" autocomplete="off">
+                  <span class="cooker-item">
+                  <?php echo $cookerType['icon'] ? '<img src="data:image/jpeg;base64,' . base64_encode( $cookerType['icon'] ) . '"/>' : ''; ?>
+                  </span>
+                  <?php echo $cookerType['name']; ?>
+                </label>
+              <?php
+              endforeach;
+              ?>
+            </div> 
+          </div> <!-- .heating -->
           <?php
           foreach($houseOptions as $option) :
           ?>
@@ -35,51 +87,14 @@
           ?>
         </section>
         <section id="drop">
-            <div class="wall">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <?php
-                foreach($houseTypes as $houseType) :
-                ?>
-                  <label class="btn btn-secondary">
-                    <input name="wall_type" data-wall-id="<?php echo $houseType['id']; ?>" class="wallType" type="radio" data-base-index="<?php echo $houseType['green_index']; ?>" autocomplete="off">
-                    <span class="wall-item">
-                    <?php echo $houseType['icon'] ? '<img src="data:image/jpeg;base64,' . base64_encode( $houseType['icon'] ) . '"/>' : ''; ?>
-                    </span>
-                    <?php echo $houseType['name']; ?>
-                  </label>
-                <?php
-                endforeach;
-                ?>
-              </div> 
-            </div>
-            <div class="wall">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <?php
-                foreach($heatingTypes as $heatingType) :
-                ?>
-                  <label class="btn btn-secondary">
-                    <input name="heating_type" data-heating-id="<?php echo $heatingType['id']; ?>" class="heatingType" type="radio" data-base-index="<?php echo $heatingType['green_index']; ?>" autocomplete="off">
-                    <span class="heating-item">
-                    <?php echo $heatingType['icon'] ? '<img src="data:image/jpeg;base64,' . base64_encode( $heatingType['icon'] ) . '"/>' : ''; ?>
-                    </span>
-                    <?php echo $heatingType['name']; ?>
-                  </label>
-                <?php
-                endforeach;
-                ?>
-              </div> 
-            </div>
+            
         </section>
       </div>
       <footer>    
-        <div class="minMaxGreenValue">
-          <p class="minValue">-20</p>
-          <p class="maxValue">160</p>
-        </div>
         <div class="progress">
           <div class="progress-bar" role="progressbar" ></div>
         </div> 
-        <div class="buttons">
+        <div class="d-flex justify-content-center buttons">
           <button class="btn btn-lg btn-success" id="saveBtn">Mentés</button>
           <button class="btn btn-lg btn-danger" onclick="location.reload()">Alaphelyzet</button>
         </div>

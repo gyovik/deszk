@@ -19,6 +19,14 @@ class Model
         return $result;
     }
 
+    public function getCookerTypes()
+    {
+        $query = 'SELECT * FROM `cooker_type`';
+        $result = $this->connection->query($query);
+        $this->connection->close();
+        return $result;
+    }
+
     public function getHeatingTypes()
     {
         $query = 'SELECT * FROM `heating_type`';
@@ -38,10 +46,10 @@ class Model
     /**
      * @return int last inserted id
      */
-    public function createNewHouse($greenValue, $houseType, $heatingType)
+    public function createNewHouse($greenValue, $houseType, $heatingType, $cookerType)
     {
         $query = 'INSERT INTO `customer_house` (`green_value`, `house_type_id`, `heating_type_id`)
-        VALUES ('.$greenValue.','.$houseType.','.$heatingType.')';
+        VALUES ('.$greenValue.','.$houseType.','.$heatingType.','.$cookerType.')';
 
         $this->connection->query($query);
         $lastId = $this->connection->getLastId();

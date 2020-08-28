@@ -7,6 +7,7 @@
 
     const wallTypeNodes = document.querySelectorAll('[name="wall_type"]');
     const heatingTypeNodes = document.querySelectorAll('[name="heating_type"]');
+    const cookerTypeNodes = document.querySelectorAll('[name="cooker_type"]');
 
     for(const wallTypeNode of wallTypeNodes) {
         wallTypeNode.addEventListener('click', handleProgressBar);
@@ -16,8 +17,12 @@
         heatingTypeNode.addEventListener('click', handleProgressBar);
     }
 
+    for(const cookerTypeNode of cookerTypeNodes) {
+        cookerTypeNode.addEventListener('click', handleProgressBar);
+    }
+
     // we need this for the progress bar (1% of the width of the progressbar in greenpoints)
-    const pointPerPercent = 100/160;
+    const pointPerPercent = 100/150;
 
     // Drag and Drop listeners
     drop.addEventListener('dragover', dragOver);
@@ -80,7 +85,6 @@
     function findSelectedWallType() {
         const wallTypes = document.querySelectorAll('.wallType');
         let checkedWallType = false;
-        console.log(wallTypes);
 
         for (const wallType of wallTypes){
             if (wallType.checked){
@@ -101,6 +105,17 @@
         }
     }
 
+    //  Return the selected radio button  
+    function findSelectedCookerType() {
+        const cookerTypes = document.querySelectorAll('.cookerType');
+
+        for (const cookerType of cookerTypes){
+            if (cookerType.checked){
+                return cookerType;
+            }
+        }
+    }
+
     //  Calculate the actual "green point" of user house
     function calcGreenValue() {
         const itemsInTheBox = document.querySelectorAll('.itemIn');
@@ -110,11 +125,17 @@
 
         let wallType = findSelectedWallType();
         let heatingType = findSelectedHeatingType();
+        let cookerType = findSelectedCookerType();
         total = Number(wallType.dataset.baseIndex);
         
         // Check the heating type, if it is selected, add it to total
         if (typeof(heatingType) !== 'undefined') {
             total += Number(heatingType.dataset.baseIndex);
+        }
+
+        // Check the cooker type, if it is selected, add it to total
+        if (typeof(cookerType) !== 'undefined') {
+            total += Number(cookerType.dataset.baseIndex);
         }
 
         // Collect all items in drop area and calculate the actual greenIndex value
@@ -135,22 +156,21 @@
           
         let greenValue = calcGreenValue();
  
-        progressBar.innerText = greenValue;
         progressBar.style.width = `${greenValue * pointPerPercent}%`;
         progressBar.className = '';
 
         if (greenValue <= 10) {
             progressBar.style.width = '5%';
             progressBar.className = 'progress-bar prog-red';
-        } else if(greenValue > 10 && greenValue <= 28) {
+        } else if(greenValue > 10 && greenValue <= 65) {
             progressBar.className = 'progress-bar prog-red';
-        } else if(greenValue > 28 && greenValue <= 56) {
+        } else if(greenValue > 65 && greenValue <= 95) {
             progressBar.className = 'progress-bar prog-dark-orange';
-        } else if(greenValue > 56 && greenValue <= 84) {
+        } else if(greenValue > 95 && greenValue <= 120) {
             progressBar.className = 'progress-bar prog-orange';
-        } else if(greenValue > 84 && greenValue <= 100) {
+        } else if(greenValue > 120 && greenValue <= 140) {
             progressBar.className = 'progress-bar prog-green';
-        } else if(greenValue > 100 && greenValue <= 160) {
+        } else if(greenValue > 140 && greenValue <= 160) {
             progressBar.className = 'progress-bar prog-dark-green';
         }
     }
@@ -173,15 +193,18 @@
         const selectedOptions = collectSelectedOptions();
         const wallTypeNode = findSelectedWallType();
         const heatingTypeNode = findSelectedHeatingType();
+        const cookerTypeNode = findSelectedCookerType();
 
         const wallType = wallTypeNode.dataset.wallId;
         const heatingType = heatingTypeNode.dataset.heatingId;
+        const cookerType = cookerTypeNode.dataset.cookerId;
         let data = {
             'save': 'true',
             'totalGreenValue' : totalGreenValue,
             'options' : selectedOptions,
             'wallType' : wallType,
-            'heatingType' : heatingType
+            'heatingType' : heatingType,
+            'cookerType' : cookerType
         }
 
         $.ajax({
