@@ -70,7 +70,6 @@ class Controller {
      */
     public function saveHouse($postArray)
     {
-        // $postArray = json_decode($postArrayJson);
         $greenValue = $postArray['totalGreenValue'];
         $selectedOtions = $postArray['options'];
         $houseType = $postArray['wallType'];
