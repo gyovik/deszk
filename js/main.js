@@ -40,10 +40,8 @@
 
     // Loop through the items and call drag events
     for(const houseOption of houseOptions) {
-        houseOption.addEventListener('dragstart', dragStart);
-        // houseOption.addEventListener('touchstart', onTouch, false);
-        houseOption.addEventListener('dragend', dragEnd);
-        // houseOption.addEventListener('touchend', dragEnd, false);
+        houseOption.addEventListener('touchstart', dragStart);
+        houseOption.addEventListener('touchend', dragEnd);
     }
 
     // Dragged item
