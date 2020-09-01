@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2020 at 08:51 PM
+-- Generation Time: Sep 01, 2020 at 11:33 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -54,7 +54,8 @@ CREATE TABLE `customer_house` (
   `id` int(11) NOT NULL,
   `green_value` float NOT NULL,
   `house_type_id` int(11) NOT NULL,
-  `heating_type_id` int(11) NOT NULL
+  `heating_type_id` int(11) NOT NULL,
+  `cooker_type_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -67,13 +68,6 @@ CREATE TABLE `customer_house_option` (
   `customer_house_id` int(11) NOT NULL,
   `house_option_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `customer_house_option`
---
-
-INSERT INTO `customer_house_option` (`customer_house_id`, `house_option_id`) VALUES
-(0, 6);
 
 -- --------------------------------------------------------
 

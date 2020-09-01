@@ -48,13 +48,19 @@ class Model
      */
     public function createNewHouse($greenValue, $houseType, $heatingType, $cookerType)
     {
-        $query = 'INSERT INTO `customer_house` (`green_value`, `house_type_id`, `heating_type_id`)
+        $query = 'INSERT INTO `customer_house` (`green_value`, `house_type_id`, `heating_type_id`,`cooker_type_id`)
         VALUES ('.$greenValue.','.$houseType.','.$heatingType.','.$cookerType.')';
 
-        $this->connection->query($query);
-        $lastId = $this->connection->getLastId();
 
-        return $lastId;
+if ($this->connection->query($query)) {
+    return $this->connection->getLastId();
+} else {
+    return $this->connection->getError();
+};
+        // $this->connection->query($query);
+        // $lastId = $this->connection->getLastId();
+
+        // return $lastId;
     }
 
     /**

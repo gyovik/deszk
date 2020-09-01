@@ -50,18 +50,19 @@
     let currentItem;
 
     // Drag functions
-    function dragStart(e) {
+    function dragStart() {
         currentItem = this;
         if(findSelectedWallType() == false) {
             $('#modalLabel').text('Először válasszon épület típust!');
             $('#message').modal('show');
-            e.preventDefault();
         }
+        // cancelDefaultBehavior(e);
     }
 
-    function dragEnd() {
+    function dragEnd(e) {
+        // return this.cancelDefaultBehavior(e);
     }
-
+    
     function dragOver(e) {
         e.preventDefault();
     }
@@ -71,30 +72,32 @@
     function dragLeave() {
     }
     function dragDrop() {
-        debugger;
         currentItem.classList.add("itemIn");
         this.append(currentItem);
         handleProgressBar();
+        // return this.cancelDefaultBehavior(e);
     }
-
+    
     function dropDrag() {
         currentItem.classList.remove("itemIn");
         this.append(currentItem);
         handleProgressBar();
+        // return this.cancelDefaultBehavior(e);
     }
 
     //  Return the selected radio button  
     function findSelectedWallType() {
         const wallTypes = document.querySelectorAll('.wallType');
 
-        let checkedWallType = false;
+        // let checkedWallType = false;
 
         for (const wallType of wallTypes){
             if (wallType.checked){
-                checkedWallType = wallType;
+                return wallType;
             } 
         }
-        return checkedWallType ? checkedWallType : false;
+        return false;
+        // return checkedWallType ? checkedWallType : false;
     }
 
     //  Return the selected radio button  
@@ -103,11 +106,10 @@
 
         for (const heatingType of heatingTypes){
             if (heatingType.checked){
-                return heatingType.dataset.heatingId;
+                return heatingType;
             }
-
-            return false;
         }
+        return 0;
     }
 
     //  Return the selected radio button  
@@ -116,10 +118,10 @@
 
         for (const cookerType of cookerTypes){
             if (cookerType.checked){
-                return cookerType.dataset.cookerId;
+                return cookerType;
             }
-            return false;
         }
+        return 0;
     }
 
     //  Calculate the actual "green point" of user house
@@ -141,14 +143,14 @@
         let heatingType = findSelectedHeatingType();
         let cookerType = findSelectedCookerType();
         total = Number(wallType.dataset.baseIndex);
-        
+        console.log(heatingType);
         // Check the heating type, if it is selected, add it to total
-        if (heatingType) {
+        if (heatingType !== 0) {
             total += Number(heatingType.dataset.baseIndex);
         }
 
         // Check the cooker type, if it is selected, add it to total
-        if (cookerType) {
+        if (cookerType !== 0) {
             total += Number(cookerType.dataset.baseIndex);
         }
 
@@ -234,8 +236,10 @@
         })
         .done(function(response){
 
-            $('#modalLabel').text(response);
-            $('#message').modal('show');
+            // $('#modalLabel').text(response);
+            // $('#message').modal('show');
+            window.alert(response);
+            location.reload();
            
         });
     }
