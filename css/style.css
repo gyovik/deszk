@@ -21,7 +21,7 @@ body {
 
 #drop {
     background: center / contain no-repeat url('../svg/házikó.svg');
-    height: 100vh;
+    height: 185vh;
     width: 40vw;  
     padding: 20px 100px 0 20px; 
     border-left: lightgrey 1px solid;
