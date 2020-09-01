@@ -71,13 +71,13 @@ class Controller {
     public function saveHouse($postArray)
     {
         $greenValue = $postArray['totalGreenValue'];
-        $selectedOtions = $postArray['options'];
+        $selectedOptions = $postArray['options'];
         $houseType = $postArray['wallType'];
         $heatingType = $postArray['heatingType'];
         $cookerType = $postArray['cookerType'];
         $model = new Model;
         $custHouseId = $model->createNewHouse($greenValue, $houseType, $heatingType, $cookerType);
-        $model->addSelectedOptions($custHouseId, $selectedOtions);
+        $model->addSelectedOptions($custHouseId, $selectedOptions);
 
         return 'Köszönjük, elmentettük...';
     }

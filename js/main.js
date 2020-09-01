@@ -53,7 +53,8 @@
     function dragStart(e) {
         currentItem = this;
         if(findSelectedWallType() == false) {
-            window.alert('Először válasszon épület típust!');
+            $('#modalLabel').text('Először válasszon épület típust!');
+            $('#message').modal('show');
             e.preventDefault();
         }
     }
@@ -70,6 +71,7 @@
     function dragLeave() {
     }
     function dragDrop() {
+        debugger;
         currentItem.classList.add("itemIn");
         this.append(currentItem);
         handleProgressBar();
@@ -84,6 +86,7 @@
     //  Return the selected radio button  
     function findSelectedWallType() {
         const wallTypes = document.querySelectorAll('.wallType');
+
         let checkedWallType = false;
 
         for (const wallType of wallTypes){
@@ -100,8 +103,10 @@
 
         for (const heatingType of heatingTypes){
             if (heatingType.checked){
-                return heatingType;
+                return heatingType.dataset.heatingId;
             }
+
+            return false;
         }
     }
 
@@ -111,17 +116,26 @@
 
         for (const cookerType of cookerTypes){
             if (cookerType.checked){
-                return cookerType;
+                return cookerType.dataset.cookerId;
             }
+            return false;
         }
     }
 
     //  Calculate the actual "green point" of user house
     function calcGreenValue() {
         const itemsInTheBox = document.querySelectorAll('.itemIn');
-
-        let baseIndex = 0;
         let total = 0;
+
+        $('#wallTypes').removeClass('redBorder');
+        $('#options').removeClass('redBorder');
+
+        if(!findSelectedWallType()){
+            $('#modalLabel').text('Kérjük válasszon épület típust!');
+            $('#message').modal('show');
+            $('#wallTypes').addClass('redBorder');
+            return;
+        }
 
         let wallType = findSelectedWallType();
         let heatingType = findSelectedHeatingType();
@@ -129,12 +143,12 @@
         total = Number(wallType.dataset.baseIndex);
         
         // Check the heating type, if it is selected, add it to total
-        if (typeof(heatingType) !== 'undefined') {
+        if (heatingType) {
             total += Number(heatingType.dataset.baseIndex);
         }
 
         // Check the cooker type, if it is selected, add it to total
-        if (typeof(cookerType) !== 'undefined') {
+        if (cookerType) {
             total += Number(cookerType.dataset.baseIndex);
         }
 
@@ -177,6 +191,7 @@
 
     function collectSelectedOptions() {
         const selectedOptions = document.querySelectorAll('.itemIn');
+        
         let selectedOptionIds = [];
         let i = 0;
         selectedOptions.forEach(option => {
@@ -192,12 +207,17 @@
         const totalGreenValue = calcGreenValue();
         const selectedOptions = collectSelectedOptions();
         const wallTypeNode = findSelectedWallType();
-        const heatingTypeNode = findSelectedHeatingType();
-        const cookerTypeNode = findSelectedCookerType();
+        const heatingType = findSelectedHeatingType();
+        const cookerType = findSelectedCookerType();
+
+        if (selectedOptions.length === 0) {
+            $('#modalLabel').text('Kérjük válasszon opció(ka)t!');
+            $('#message').modal('show');
+            $('#options').addClass('redBorder');
+            return;
+        }
 
         const wallType = wallTypeNode.dataset.wallId;
-        const heatingType = heatingTypeNode.dataset.heatingId;
-        const cookerType = cookerTypeNode.dataset.cookerId;
         let data = {
             'save': 'true',
             'totalGreenValue' : totalGreenValue,
@@ -213,7 +233,9 @@
             data: data
         })
         .done(function(response){
-            window.location.reload();
-            window.alert(response);
+
+            $('#modalLabel').text(response);
+            $('#message').modal('show');
+           
         });
     }

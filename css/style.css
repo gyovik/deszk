@@ -77,3 +77,8 @@
 .btn {
     margin-right: 30px;
 } 
+
+.redBorder {
+    border: 1px solid red;
+    border-radius: 5px;
+}

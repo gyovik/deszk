@@ -19,10 +19,25 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="error"></div>
+<div id="message" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Rendben</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <div class="boxes">
         <section id="drag">
-        <div class="radioBtns">
+        <div class="radioBtns" id="wallTypes">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <?php
               foreach($houseTypes as $houseType) :
@@ -38,7 +53,7 @@
               ?>
             </div> 
           </div> <!-- .wall -->
-          <div class="radioBtns">
+          <div class="radioBtns" id="heatingTypes">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <?php
               foreach($heatingTypes as $heatingType) :
@@ -54,7 +69,7 @@
               ?>
             </div> 
           </div> <!-- .heating -->
-          <div class="radioBtns">
+          <div class="radioBtns" id="cookerTypes">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <?php
               foreach($cookerTypes as $cookerType) :
@@ -70,6 +85,9 @@
               ?>
             </div> 
           </div> <!-- .cooker -->
+          <div id="options">
+
+          
           <?php
           foreach($houseOptions as $option) :
           ?>
@@ -79,6 +97,7 @@
           <?php
           endforeach;
           ?>
+          </div>
         </section>
         <section id="drop">
             

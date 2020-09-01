@@ -60,9 +60,13 @@ class Model
     /**
      * Save the selected options to pivot table
      */
-    public function addSelectedOptions($custHouseId, $selectedOtions)
+    public function addSelectedOptions($custHouseId, $selectedOptions)
     {
-        foreach ($selectedOtions as $option) {
+        if ($selectedOptions == false) {
+            return false;
+        }
+
+        foreach ($selectedOptions as $option) {
             $query = 'INSERT INTO `customer_house_option` (`customer_house_id`,`house_option_id`)
             VALUES ('. $custHouseId .','. $option .')';
             if ($this->connection->query($query)) {
