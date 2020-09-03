@@ -63,6 +63,30 @@ class Controller {
     }
 
     /**
+     * Get age groups for modal select
+     * 
+     * @return array
+     */
+    public function getAgeGroups()
+    {
+        $model = new Model;
+        $result = $model->getAgeGroups();
+        return $this->toArray($result);
+    }
+
+    /**
+     * Get education levels for modal select
+     * 
+     * @return array
+     */
+    public function getEducationLevels()
+    {
+        $model = new Model;
+        $result = $model->getEducationLevels();
+        return $this->toArray($result);
+    }
+
+    /**
      * Save user house
      * 
      * @param array POST array
@@ -75,8 +99,10 @@ class Controller {
         $houseType = $postArray['wallType'];
         $heatingType = $postArray['heatingType'];
         $cookerType = $postArray['cookerType'];
+        $educationLevel = $postArray['educationLevelId'];
+        $ageGroup = $postArray['ageGroupId'];
         $model = new Model;
-        $custHouseId = $model->createNewHouse($greenValue, $houseType, $heatingType, $cookerType);
+        $custHouseId = $model->createNewHouse($greenValue, $houseType, $heatingType, $cookerType, $educationLevel, $ageGroup);
         $model->addSelectedOptions($custHouseId, $selectedOptions);
 
         return 'Köszönjük, elmentettük...';

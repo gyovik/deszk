@@ -17,40 +17,44 @@ body {
 #drag {
     width: 50vw;
     margin: 0;
+    padding: 20px;
 }
 
 #drop {
-    background: center / contain no-repeat url('../svg/házikó.svg');
+    background: center / cover no-repeat url('../svg/házikó.svg');
     height: 85vh;
     width: 40vw;  
     padding: 20px 100px 0 20px; 
     border-left: lightgrey 1px solid;
-    margin: 0;
+    margin-top: 100px;
 }
 
 #drop>*{
     background: #a6c34c;
 }
+
 .houseOption {
     width: 6vw;
     height: 6vw;
     display: inline-flex;
-    margin: 0;
     border: 1px solid lightgrey;
     border-radius: 50%;
-    margin: 5px;
+    margin: 5px 0 5px 40px;
 } 
 .houseOption img {
     width: 6vw;
 }
+
 .wall-item, .heating-item, .cooker-item {
     width: 7vw;
     height: 7vw;
     display: block;
 }
 
-.radioBtns {
-    margin-bottom: 10px;
+label.btn {
+    margin: 0 0 20px 40px !important;
+    padding: 0;
+
 }
 
 .progress {

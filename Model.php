@@ -43,24 +43,34 @@ class Model
         return $result;
     }
 
+    public function getAgeGroups()
+    {
+        $query = 'SELECT * FROM `age_group`';
+        $result = $this->connection->query($query);
+        $this->connection->close();
+        return $result;
+    }
+    public function getEducationLevels()
+    {
+        $query = 'SELECT * FROM `education_level`';
+        $result = $this->connection->query($query);
+        $this->connection->close();
+        return $result;
+    }
+
     /**
      * @return int last inserted id
      */
-    public function createNewHouse($greenValue, $houseType, $heatingType, $cookerType)
+    public function createNewHouse($greenValue, $houseType, $heatingType, $cookerType, $educationLevel, $ageGroup)
     {
-        $query = 'INSERT INTO `customer_house` (`green_value`, `house_type_id`, `heating_type_id`,`cooker_type_id`)
-        VALUES ('.$greenValue.','.$houseType.','.$heatingType.','.$cookerType.')';
+        $query = 'INSERT INTO `customer_house` (`green_value`, `house_type_id`, `heating_type_id`,`cooker_type_id`,`education_level_id`,`age_group_id`)
+        VALUES ('.$greenValue.','.$houseType.','.$heatingType.','.$cookerType.','.$educationLevel.','.$ageGroup.')';
 
-
-if ($this->connection->query($query)) {
-    return $this->connection->getLastId();
-} else {
-    return $this->connection->getError();
-};
-        // $this->connection->query($query);
-        // $lastId = $this->connection->getLastId();
-
-        // return $lastId;
+        if ($this->connection->query($query)) {
+            return $this->connection->getLastId();
+        } else {
+            return $this->connection->getError();
+        };
     }
 
     /**

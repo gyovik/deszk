@@ -6,8 +6,9 @@
   $houseTypes = $controller->getHouseTypes();
   $heatingTypes = $controller->getHeatingTypes();
   $cookerTypes = $controller->getCookerTypes();
+  $ageGroups = $controller->getAgeGroups();
+  $educationLevels = $controller->getEducationLevels();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +35,51 @@
     </div>
   </div>
 </div>
-
+<div id="modalForm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form class="needs-validation" novalidate>
+          <div class="form-row align-items-center">
+            <div class="col-auto">
+              <label class="mr-sm-2" for="age">Az Ön életkora:</label>
+              <div id="ageErrMsg"></div>
+              <select class="form-control mr-sm-2" id="age" required>
+                <option value="0" selected disabled>Válasszon...</option>
+                <?php
+                foreach($ageGroups as $age) :
+                  ?>
+                  <option value="<?php echo $age['id']; ?>"><?php echo $age['name']; ?></option>
+                  <?php
+                endforeach;
+                ?>
+              </select>
+              <label class="mr-sm-2" for="educationLevel">Az Ön legmagasabb iskolai végzettsége:</label>
+              <div id="eduErrMsg"></div>
+              <select class="custom-select mr-sm-2" id="educationLevel" required>
+                <option value="0" selected disabled>Válasszon...</option>
+                <?php
+                foreach($educationLevels as $edLevel) :
+                ?>
+                  <option value="<?php echo $edLevel['id']; ?>"><?php echo $edLevel['name']; ?></option>
+                <?php
+                endforeach;
+                ?>
+                
+              </select>
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button id="modalSaveBtn" type="button" class="btn btn-success">Mentés</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">Mégsem</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     <div class="boxes">
         <section id="drag">
         <div class="radioBtns" id="wallTypes">
@@ -86,8 +131,6 @@
             </div> 
           </div> <!-- .cooker -->
           <div id="options">
-
-          
           <?php
           foreach($houseOptions as $option) :
           ?>
@@ -108,7 +151,7 @@
           <div class="progress-bar" role="progressbar" ></div>
         </div> 
         <div class="d-flex justify-content-center buttons">
-          <button class="btn btn-lg btn-success" id="saveBtn">Mentés</button>
+          <button class="btn btn-lg btn-success" id="mainSaveBtn">Mentés</button>
           <button class="btn btn-lg btn-danger" onclick="location.reload()">Alaphelyzet</button>
         </div>
       </footer>

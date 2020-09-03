@@ -2,7 +2,8 @@
     const drop = document.querySelector('#drop');
     const drag = document.querySelector('#drag');
     const houseOptions = document.querySelectorAll('.houseOption');
-    const saveBtn = document.querySelector('#saveBtn');
+    const mainSaveBtn = document.querySelector('#mainSaveBtn');
+    const modalSaveBtn = document.querySelector('#modalSaveBtn');
     const progressBar = document.querySelector('.progress-bar');
 
     const wallTypeNodes = document.querySelectorAll('[name="wall_type"]');
@@ -27,21 +28,41 @@
     // Drag and Drop listeners
     drop.addEventListener('dragover', dragOver);
     drop.addEventListener('dragenter', dragEnter);
-    drop.addEventListener('dragleave', dragLeave);
+    // drop.addEventListener('dragleave', dragLeave);
     drop.addEventListener('drop', dragDrop);
 
     drag.addEventListener('dragover', dragOver);
     drag.addEventListener('dragenter', dragEnter);
-    drag.addEventListener('dragleave', dragLeave);
+    // drag.addEventListener('dragleave', dragLeave);
     drag.addEventListener('drop', dropDrag);
 
-    // Save btn listener
-    saveBtn.addEventListener('click', sendAjaxReq);
+    // Main save btn listener
+    mainSaveBtn.addEventListener('click', function() {
+
+        if(!findSelectedOption('.wallType')){
+            $('#modalLabel').text('Kérjük válasszon épület típust!');
+            $('#message').modal('show');
+            $('#wallTypes').addClass('redBorder');
+            return;
+        }
+
+        const selectedOptions = collectSelectedOptions();
+        if (selectedOptions.length === 0) {
+            $('#modalLabel').text('Kérjük válasszon opció(ka)t!');
+            $('#message').modal('show');
+            $('#options').addClass('redBorder');
+            return;
+        }
+
+        $('#modalForm').modal('show');
+    });
+
+    modalSaveBtn.addEventListener('click', sendAjaxReq);
 
     // Loop through the items and call drag events
     for(const houseOption of houseOptions) {
         houseOption.addEventListener('touchstart', dragStart);
-        houseOption.addEventListener('touchend', dragEnd);
+        // houseOption.addEventListener('touchend', dragEnd);
     }
 
     // Dragged item
@@ -50,15 +71,13 @@
     // Drag functions
     function dragStart() {
         currentItem = this;
-        if(findSelectedWallType() == false) {
+        if(!findSelectedOption('.wallType')) {
             $('#modalLabel').text('Először válasszon épület típust!');
             $('#message').modal('show');
         }
-        // cancelDefaultBehavior(e);
     }
 
     function dragEnd(e) {
-        // return this.cancelDefaultBehavior(e);
     }
     
     function dragOver(e) {
@@ -67,60 +86,65 @@
     function dragEnter(e) {
         e.preventDefault();
     }
-    function dragLeave() {
-    }
+    // function dragLeave() {
+    // }
     function dragDrop() {
         currentItem.classList.add("itemIn");
         this.append(currentItem);
         handleProgressBar();
-        // return this.cancelDefaultBehavior(e);
     }
     
     function dropDrag() {
         currentItem.classList.remove("itemIn");
         this.append(currentItem);
         handleProgressBar();
-        // return this.cancelDefaultBehavior(e);
     }
 
     //  Return the selected radio button  
-    function findSelectedWallType() {
-        const wallTypes = document.querySelectorAll('.wallType');
+    // function findSelectedWallType() {
+    //     const wallTypes = document.querySelectorAll('.wallType');
 
-        // let checkedWallType = false;
+    //     for (const wallType of wallTypes){
+    //         if (wallType.checked){
+    //             return wallType;
+    //         } 
+    //     }
+    //     return false;
+    // }
 
-        for (const wallType of wallTypes){
-            if (wallType.checked){
-                return wallType;
-            } 
+    //  Return the selected radio button  
+    // function findSelectedHeatingType() {
+    //     const heatingTypes = document.querySelectorAll('.heatingType');
+
+    //     for (const heatingType of heatingTypes){
+    //         if (heatingType.checked){
+    //             return heatingType;
+    //         }
+    //     }
+    //     return 0;
+    // }
+  
+    /**
+     * Return the selected option
+     * 
+     * @param string selectClass The name of the select tag's class or id ('.className'|'#idName')
+     * 
+     * @return int|bool The id of the selected item or false if nothing selected  
+     */
+    function findSelectedOption(selectClass) {
+
+        const selectOptions = document.querySelectorAll(selectClass);
+    
+        for (const option of selectOptions){
+            if (option.checked){
+                return option;
+            }
         }
         return false;
-        // return checkedWallType ? checkedWallType : false;
     }
 
-    //  Return the selected radio button  
-    function findSelectedHeatingType() {
-        const heatingTypes = document.querySelectorAll('.heatingType');
-
-        for (const heatingType of heatingTypes){
-            if (heatingType.checked){
-                return heatingType;
-            }
-        }
-        return 0;
-    }
-
-    //  Return the selected radio button  
-    function findSelectedCookerType() {
-        const cookerTypes = document.querySelectorAll('.cookerType');
-
-        for (const cookerType of cookerTypes){
-            if (cookerType.checked){
-                return cookerType;
-            }
-        }
-        return 0;
-    }
+    // function findSelectedCookerType() {
+    // }
 
     //  Calculate the actual "green point" of user house
     function calcGreenValue() {
@@ -129,26 +153,27 @@
 
         $('#wallTypes').removeClass('redBorder');
         $('#options').removeClass('redBorder');
-
-        if(!findSelectedWallType()){
+        
+        let wallType = findSelectedOption('.wallType');
+        let heatingType = findSelectedOption('.heatingType');
+        let cookerType = findSelectedOption('.cookerType')
+        
+        if(!wallType){
             $('#modalLabel').text('Kérjük válasszon épület típust!');
             $('#message').modal('show');
             $('#wallTypes').addClass('redBorder');
             return;
         }
-
-        let wallType = findSelectedWallType();
-        let heatingType = findSelectedHeatingType();
-        let cookerType = findSelectedCookerType();
+        
         total = Number(wallType.dataset.baseIndex);
-        console.log(heatingType);
+
         // Check the heating type, if it is selected, add it to total
-        if (heatingType !== 0) {
+        if (heatingType) {
             total += Number(heatingType.dataset.baseIndex);
         }
 
         // Check the cooker type, if it is selected, add it to total
-        if (cookerType !== 0) {
+        if (cookerType) {
             total += Number(cookerType.dataset.baseIndex);
         }
 
@@ -200,21 +225,72 @@
         });
         return selectedOptionIds;
     }
-    
+
+    function getAgeGroupId() {
+        $('#age').removeClass('border border-danger');
+        const formVal = $('#age').children("option:selected").val();
+        if (formVal === '0') {
+            return false;
+        }
+        return formVal;
+    }
+
+    function getEducationLevelId() {
+        $('#educationLevel').removeClass('border border-danger');
+        const formVal = $('#educationLevel').children("option:selected").val();
+        if (formVal === '0') {
+            return false;
+        }
+        return formVal;
+    }
     
     //  Send user data to db using AJAX
     function sendAjaxReq() {
+        $('#modalForm').modal('hide');
+        // debugger;
         const totalGreenValue = calcGreenValue();
         const selectedOptions = collectSelectedOptions();
-        const wallTypeNode = findSelectedWallType();
-        const heatingType = findSelectedHeatingType();
-        const cookerType = findSelectedCookerType();
+        const wallTypeNode = findSelectedOption('.wallType');
+        const heatingTypeNode = findSelectedOption('.heatingType');
+        const cookerTypeNode = findSelectedOption('.cookerType');
+        const ageGroupId = getAgeGroupId();
+        const educationLevelId = getEducationLevelId();
+
+        let heatingType = 0;
+        let cookerType = 0;
+
+        if(!wallTypeNode){
+            $('#modalLabel').text('Kérjük válasszon épület típust!');
+            $('#message').modal('show');
+            $('#wallTypes').addClass('redBorder');
+            return;
+        }
 
         if (selectedOptions.length === 0) {
             $('#modalLabel').text('Kérjük válasszon opció(ka)t!');
             $('#message').modal('show');
             $('#options').addClass('redBorder');
             return;
+        }
+
+        if(!ageGroupId) {
+            $('#ageErrMsg').text('Kérem válasszon korcsoportot!');
+            $('#age').addClass('border border-danger');
+            return;
+        }
+
+        if(!educationLevelId) {
+            $('#eduErrMsg').text('Kérem válasszon iskolai végzettséget!');
+            $('#educationLevel').addClass('border border-danger');
+            return;
+        }
+
+        if (heatingTypeNode) {
+            heatingType = heatingTypeNode.dataset.heatingId
+        }
+
+        if (cookerTypeNode) {
+            cookerType = cookerTypeNode.dataset.cookerId
         }
 
         const wallType = wallTypeNode.dataset.wallId;
@@ -224,7 +300,9 @@
             'options' : selectedOptions,
             'wallType' : wallType,
             'heatingType' : heatingType,
-            'cookerType' : cookerType
+            'cookerType' : cookerType,
+            'educationLevelId': educationLevelId,
+            'ageGroupId': ageGroupId
         }
 
         $.ajax({
@@ -233,11 +311,11 @@
             data: data
         })
         .done(function(response){
-
-            // $('#modalLabel').text(response);
-            // $('#message').modal('show');
-            window.alert(response);
-            location.reload();
-           
+            $('#modalLabel').text(response);
+            $('#message').modal('show');
+            $('#message').on('hide.bs.modal', function() {
+                location.reload();
+            });
+                
         });
     }
