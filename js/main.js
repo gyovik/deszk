@@ -83,11 +83,11 @@
     function dragOver(e) {
         e.preventDefault();
     }
+    
     function dragEnter(e) {
         e.preventDefault();
     }
-    // function dragLeave() {
-    // }
+
     function dragDrop() {
         currentItem.classList.add("itemIn");
         this.append(currentItem);
@@ -99,30 +99,6 @@
         this.append(currentItem);
         handleProgressBar();
     }
-
-    //  Return the selected radio button  
-    // function findSelectedWallType() {
-    //     const wallTypes = document.querySelectorAll('.wallType');
-
-    //     for (const wallType of wallTypes){
-    //         if (wallType.checked){
-    //             return wallType;
-    //         } 
-    //     }
-    //     return false;
-    // }
-
-    //  Return the selected radio button  
-    // function findSelectedHeatingType() {
-    //     const heatingTypes = document.querySelectorAll('.heatingType');
-
-    //     for (const heatingType of heatingTypes){
-    //         if (heatingType.checked){
-    //             return heatingType;
-    //         }
-    //     }
-    //     return 0;
-    // }
   
     /**
      * Return the selected option
