@@ -82,7 +82,7 @@
 </div>
     <div class="boxes">
         <section id="drag">
-        <div class="radioBtns" id="wallTypes">
+          <div class="radioBtns" id="wallTypes">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <?php
               foreach($houseTypes as $houseType) :

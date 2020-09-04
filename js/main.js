@@ -61,8 +61,8 @@
 
     // Loop through the items and call drag events
     for(const houseOption of houseOptions) {
-        houseOption.addEventListener('touchstart', dragStart);
-        // houseOption.addEventListener('touchend', dragEnd);
+        houseOption.addEventListener('dragstart', dragStart);
+        houseOption.addEventListener('dragend', dragEnd);
     }
 
     // Dragged item
@@ -78,12 +78,12 @@
     }
 
     function dragEnd(e) {
+        e.preventDefault();
     }
     
     function dragOver(e) {
         e.preventDefault();
     }
-    
     function dragEnter(e) {
         e.preventDefault();
     }
