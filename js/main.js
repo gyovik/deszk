@@ -177,15 +177,15 @@
         if (greenValue <= 10) {
             progressBar.style.width = '5%';
             progressBar.className = 'progress-bar prog-red';
-        } else if(greenValue > 10 && greenValue <= 65) {
+        } else if(greenValue > 10 && greenValue <= 50) {
             progressBar.className = 'progress-bar prog-red';
-        } else if(greenValue > 65 && greenValue <= 95) {
+        } else if(greenValue > 50 && greenValue <= 65) {
             progressBar.className = 'progress-bar prog-dark-orange';
-        } else if(greenValue > 95 && greenValue <= 120) {
+        } else if(greenValue > 65 && greenValue <= 85) {
             progressBar.className = 'progress-bar prog-orange';
-        } else if(greenValue > 120 && greenValue <= 140) {
+        } else if(greenValue > 85 && greenValue <= 120) {
             progressBar.className = 'progress-bar prog-green';
-        } else if(greenValue > 140 && greenValue <= 160) {
+        } else if(greenValue > 120 && greenValue <= 160) {
             progressBar.className = 'progress-bar prog-dark-green';
         }
     }
