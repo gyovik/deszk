@@ -119,9 +119,6 @@
         return false;
     }
 
-    // function findSelectedCookerType() {
-    // }
-
     //  Calculate the actual "green point" of user house
     function calcGreenValue() {
         const itemsInTheBox = document.querySelectorAll('.itemIn');
@@ -129,17 +126,10 @@
 
         $('#wallTypes').removeClass('redBorder');
         $('#options').removeClass('redBorder');
-        
+
         let wallType = findSelectedOption('.wallType');
         let heatingType = findSelectedOption('.heatingType');
         let cookerType = findSelectedOption('.cookerType')
-        
-        if(!wallType){
-            $('#modalLabel').text('Kérjük válasszon épület típust!');
-            $('#message').modal('show');
-            $('#wallTypes').addClass('redBorder');
-            return;
-        }
         
         total = Number(wallType.dataset.baseIndex);
 
@@ -168,7 +158,31 @@
         const orange = '#ffc84a';
         const darkOrange = '#f48847';
         const red = '#eb4841';
-          
+        const wallType = findSelectedOption('.wallType');
+        const heatingType = findSelectedOption('.heatingType');
+        const cookerType = findSelectedOption('.cookerType');
+
+        if(!wallType){
+            $('#modalLabel').text('Kérjük válasszon épület típust!');
+            $('#message').modal('show');
+            $('.pulse').addClass('pulse-red');
+            return;
+        } else {
+            $('#wallTypes .btn').removeClass('pulse-red');
+            $('#wallTypes .btn').removeClass('pulse');
+            $('#heatingTypes .btn').addClass('pulse');
+        }
+
+        if(heatingType) {
+            $('#heatingTypes .btn').removeClass('pulse');
+            $('#cookerTypes .btn').addClass('pulse');
+        }
+
+        if(cookerType) {
+            $('#cookerTypes .btn').removeClass('pulse');
+            $('.swipeArrow').removeClass('hidden');
+        }
+
         let greenValue = calcGreenValue();
  
         progressBar.style.width = `${greenValue * pointPerPercent}%`;

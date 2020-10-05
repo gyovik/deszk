@@ -28,7 +28,6 @@ body {
     width: 50vw;  
     padding: 20px 20px; 
     border-left: lightgrey 1px solid;
-    /* margin-top: 100px; */
 }
 
 #drop>*{
@@ -55,9 +54,9 @@ body {
 }
 
 label.btn {
+    border-radius: 0% !important;
     margin: 0 0 20px 40px !important;
     padding: 0;
-
 }
 
 .progress {
@@ -93,4 +92,101 @@ label.btn {
 .redBorder {
     border: 1px solid red;
     border-radius: 5px;
+}
+
+.swipeArrow {
+    position: absolute;
+    width: 8vw;
+    height: 8vw;
+    z-index: 10;
+}
+  
+.arrows {
+    transform: rotate(270deg) scale(0.6,0.6) translate(-600px, 80vw);
+}
+  
+.arrows path {
+    stroke: green;
+    fill: transparent;
+    stroke-width: 3px;	
+    animation: arrow 2s infinite;
+    -webkit-animation: arrow 2s infinite; 
+}
+
+@keyframes arrow {
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+
+@-webkit-keyframes arrow {
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+
+.arrows path.a1 {
+    animation-delay:-1s;
+    -webkit-animation-delay:-1s; /* Safari 和 Chrome */
+}
+
+.arrows path.a2 {
+    animation-delay:-0.5s;
+    -webkit-animation-delay:-0.5s; /* Safari 和 Chrome */
+}
+
+.arrows path.a3 {	
+    animation-delay:0s;
+    -webkit-animation-delay:0s; /* Safari 和 Chrome */
+}
+
+.pulse {
+    animation: pulse 2s linear infinite;
+}
+.pulse-red {
+    animation: pulse-red 1.5s linear infinite;
+}
+
+@keyframes pulse {
+    0%
+    {
+        box-shadow: 0 0 0 0 rgba(166,195,76,.3), 0 0 0 0 rgba(166,195,76,.3);
+    }
+    40%
+    {
+        box-shadow: 0 0 0 10px rgba(166,195,76,0), 0 0 0 10px rgba(166,195,76,.3);
+    }
+    80%
+    {
+        box-shadow: 0 0 0 10px rgba(166,195,76,0), 0 0 0 5px rgba(166,195,76,0);
+    }
+    100%
+    {
+        box-shadow: 0 0 0 0 rgba(166,195,76,0), 0 0 0 5px rgba(166,195,76,0);
+    }   
+}
+
+@keyframes pulse-red {
+    0%
+    {
+        box-shadow: 0 0 0 0 rgba(253, 13, 13,.3), 0 0 0 0 rgba(253, 13, 13,.3);
+    }
+    40%
+    {
+        box-shadow: 0 0 0 10px rgba(253, 13, 13,0), 0 0 0 10px rgba(253, 13, 13,.3);
+    }
+    80%
+    {
+        box-shadow: 0 0 0 10px rgba(253, 13, 13,0), 0 0 0 5px rgba(253, 13, 13,0);
+    }
+    100%
+    {
+        box-shadow: 0 0 0 0 rgba(253, 13, 13,0), 0 0 0 5px rgba(253, 13, 13,0);
+    }   
+}
+
+.hidden {
+    display: none;
 }

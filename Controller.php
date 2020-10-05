@@ -1,8 +1,11 @@
 <?php
 
 require 'Model.php';
-
-class Controller {
+/**
+ * Controller Class
+ */
+class Controller
+{
 
     /**
      * Get available options for drag and drop
@@ -26,16 +29,10 @@ class Controller {
     private function toArray($result)
     {
         $rows = [];
-        while($row = mysqli_fetch_array($result))
-        {
+        while ($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
-    }
-
-    private function clearInput($input)
-    {
-
     }
 
     /**
@@ -89,7 +86,8 @@ class Controller {
     /**
      * Save user house
      * 
-     * @param array POST array
+     * @param $postArray array POST array
+     * 
      * @return string
      */
     public function saveHouse($postArray)
@@ -102,7 +100,14 @@ class Controller {
         $educationLevel = $postArray['educationLevelId'];
         $ageGroup = $postArray['ageGroupId'];
         $model = new Model;
-        $custHouseId = $model->createNewHouse($greenValue, $houseType, $heatingType, $cookerType, $educationLevel, $ageGroup);
+        $custHouseId = $model->createNewHouse(
+            $greenValue,
+            $houseType,
+            $heatingType,
+            $cookerType,
+            $educationLevel,
+            $ageGroup
+        );
         $model->addSelectedOptions($custHouseId, $selectedOptions);
 
         return 'Köszönjük, elmentettük...';

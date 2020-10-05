@@ -1,5 +1,5 @@
 <?php
-  require 'Controller.php';
+require 'Controller.php';
 
   $controller = new Controller;
   $houseOptions = $controller->getHouseOptions();
@@ -8,6 +8,7 @@
   $cookerTypes = $controller->getCookerTypes();
   $ageGroups = $controller->getAgeGroups();
   $educationLevels = $controller->getEducationLevels();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
 <div id="message" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -85,7 +87,7 @@
           <?php
           foreach($houseTypes as $houseType) :
           ?>
-          <label class="btn btn-light">
+          <label class="btn btn-light pulse">
             <input name="wall_type" data-wall-id="<?php echo $houseType['id']; ?>" class="wallType" type="radio" data-base-index="<?php echo $houseType['green_index']; ?>" autocomplete="off">
             <span class="wall-item">
             <?php echo $houseType['icon'] ? '<img src="svg/' . $houseType['icon'] . '.svg"/>' : ''; ?>
@@ -95,7 +97,7 @@
           endforeach;
           ?>
         </div> 
-      </div> <!-- .wall -->
+      </div> <!-- #wallTypes -->
       <div class="radioBtns" id="heatingTypes">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <?php
@@ -111,7 +113,7 @@
           endforeach;
           ?>
         </div> 
-      </div> <!-- .heating -->
+      </div> <!-- /#heatingTypes -->
       <div class="radioBtns" id="cookerTypes">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <?php
@@ -126,24 +128,29 @@
           <?php
           endforeach;
           ?>
-        </div> 
-      </div> <!-- .cooker -->
-      <div id="options">
-      <?php
-      foreach($houseOptions as $option) :
-      ?>
-        <div class="houseOption" data-option-id="<?php echo $option['id']; ?>" data-green-index="<?php echo $option['green_index']; ?>" draggable="true">
-        <?php echo $option['icon'] ? '<img src="svg/' . $option['icon'] . '.svg"/>' : '' ?>
         </div>
-      <?php
-      endforeach;
-      ?>
-      </div>
+      </div> <!-- /#cookerTypes -->
+      <div id="options">
+        <?php
+        foreach($houseOptions as $option) :
+        ?>
+        <div class="houseOption" data-option-id="<?php echo $option['id']; ?>" data-green-index="<?php echo $option['green_index']; ?>" draggable="true">
+          <?php echo $option['icon'] ? '<img src="svg/' . $option['icon'] . '.svg"/>' : '' ?>
+        </div>
+        <?php
+        endforeach;
+        ?> 
+      </div> <!-- /#options  --> 
     </section>
-    <section id="drop">
-            
-    </section>
-  </div>
+      <div class="swipeArrow hidden">
+        <svg class="arrows">
+          <path class="a1" d="M0 0 L30 32 L60 0"></path>
+          <path class="a2" d="M0 20 L30 52 L60 20"></path>
+          <path class="a3" d="M0 40 L30 72 L60 40"></path>
+        </svg>
+      </div>  
+    <section id="drop"></section>
+  </div> <!-- /.boxes -->
   <footer>    
     <div class="progress">
       <div class="progress-bar" role="progressbar" ></div>
@@ -153,6 +160,7 @@
       <button class="btn btn-lg btn-danger" onclick="location.reload()">Alaphelyzet</button>
     </div>
   </footer>
+ 
   <!-- JS, Popper.js, and jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
